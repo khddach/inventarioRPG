@@ -7,6 +7,7 @@ import java.util.*;
 @Getter
 public class Personaje {
 
+
     private String nombre;
     private Map<String, Item> inventario;
     private Map<TipoEquipamiento, Item> equipo;
@@ -14,8 +15,9 @@ public class Personaje {
     public Personaje(String nombre) {
         this.nombre = nombre;
         this.inventario = new HashMap<>();
-        this.equipo = new TreeMap<>();
+        this.equipo = new TreeMap<>(Comparator.comparing(TipoEquipamiento::toString));
     }
+
 
     /**
      * Agrega un item al inventario del personaje
@@ -42,6 +44,7 @@ public class Personaje {
         return new ArrayList<>(inventario.values());
     }
 
+
     /**
      * Busca un item en el inventario del personaje por su nombre
      * @param nombreItem
@@ -52,13 +55,14 @@ public class Personaje {
     }
 
 
+
     /**
      * Agrega un item al equipo del personaje
      * @param tipoEquipamiento
      * @param item
      */
     public void agregarEquipo(TipoEquipamiento tipoEquipamiento, Item item) {
-        //No vamos a comprobar que el item esté en el inventario
+        //No vamos a comprobar que el item esté en el inventario, asumimos que el usuario lo hace bien
 
         //Verificar que el item no esté ya en el equipo
         if (equipo.containsKey(tipoEquipamiento)) {
@@ -66,12 +70,15 @@ public class Personaje {
             Item antiguo = equipo.get(tipoEquipamiento);
             inventario.put(antiguo.getNombre(), antiguo);
         }
+
         //Poner el nuevo
+        //ToDo - Habría que comprobar TipoItem para ver si puedo ponerlo donde corresponde
         equipo.put(tipoEquipamiento, item);
         //Eliminar el nuevo item del inventario
         inventario.remove(item.getNombre());
 
     }
+
 
     /**
      * Elimina un item del equipo del personaje, lo devolvemos al inventario
@@ -84,6 +91,7 @@ public class Personaje {
     }
 
 
+
     /**
      * Devuelve una lista con todos los items del equipo del personaje
      * @return Map.Entry<TipoEquipamiento, Item>
@@ -91,8 +99,6 @@ public class Personaje {
     public List<Map.Entry<TipoEquipamiento, Item>> getEquipo() {
         return new ArrayList<>(equipo.entrySet());
     }
-
-
 
 
 
