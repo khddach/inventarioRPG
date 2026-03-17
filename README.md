@@ -150,7 +150,7 @@ Crear una clase `Main` donde:
 * Proyecto compilable con Maven.
 
 ---
-
+ 
 ## 🧠 Criterios de evaluación
 
 * Uso correcto de `Map`.
